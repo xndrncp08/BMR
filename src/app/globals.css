@@ -2,10 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Primary — Clinical Blue */
+  --color-primary: #1b5aa6;
+  --color-primary-dark: #123f73;
+  --color-primary-light: #eaf2fb;
+
+  /* Secondary — Wellness Green */
+  --color-secondary: #2f9e6e;
+  --color-secondary-dark: #1f7350;
+  --color-secondary-light: #e6f5ee;
+
+  /* Neutrals */
+  --color-neutral-50: #f7f9fa;
+  --color-neutral-100: #eef1f4;
+  --color-neutral-300: #c6cdd6;
+  --color-neutral-500: #64748b;
+  --color-neutral-700: #33404f;
+  --color-neutral-900: #16202b;
+
+  /* Feedback */
+  --color-error: #c23b3b;
+  --color-error-light: #fbebeb;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
+  color: var(--color-neutral-900);
+  background-color: #ffffff;
+}
+
+/* Respect reduced-motion preferences site-wide */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
