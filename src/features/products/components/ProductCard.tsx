@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {

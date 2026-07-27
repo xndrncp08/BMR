@@ -1,11 +1,4 @@
-import {
-  Pill,
-  Stethoscope,
-  HeartPulse,
-  ShoppingBag,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
+import { Pill, Stethoscope, HeartPulse, ShoppingBag, Users, type LucideIcon } from "lucide-react";
 
 export interface Service {
   slug: string;
