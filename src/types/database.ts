@@ -25,6 +25,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;
+        Relationships: [];
       };
       prescription_requests: {
         Row: {
@@ -64,7 +65,12 @@ export interface Database {
         Update: Partial<
           Database["public"]["Tables"]["prescription_requests"]["Insert"]
         >;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }
