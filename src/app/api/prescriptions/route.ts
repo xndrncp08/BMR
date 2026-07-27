@@ -7,31 +7,18 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      { error: "Invalid request body." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
   const parsed = prescriptionRefillSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      {
-        error: "Please check the form for errors.",
-        fieldErrors: parsed.error.flatten().fieldErrors,
-      },
-      { status: 422 },
+      { error: "Please check the form for errors.", fieldErrors: parsed.error.flatten().fieldErrors },
+      { status: 422 }
     );
   }
 
-  const {
-    customerName,
-    email,
-    phone,
-    medicineName,
-    prescriptionNumber,
-    notes,
-  } = parsed.data;
+  const { customerName, email, phone, medicineName, prescriptionNumber, notes } = parsed.data;
 
   const supabase = await createClient();
   const { error } = await supabase.from("prescription_requests").insert({
@@ -46,11 +33,8 @@ export async function POST(request: Request) {
   if (error) {
     console.error("Failed to insert prescription request:", error.message);
     return NextResponse.json(
-      {
-        error:
-          "We couldn't submit your request. Please try again or call us directly.",
-      },
-      { status: 500 },
+      { error: "We couldn't submit your request. Please try again or call us directly." },
+      { status: 500 }
     );
   }
 

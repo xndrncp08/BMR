@@ -4,10 +4,7 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Button } from "@/components/ui";
 import { FormField } from "@/components/shared/FormField";
 import { getInputClassName } from "@/components/shared/input-styles";
-import {
-  prescriptionRefillSchema,
-  type PrescriptionRefillInput,
-} from "../schema";
+import { prescriptionRefillSchema, type PrescriptionRefillInput } from "../schema";
 
 type FieldErrors = Partial<Record<keyof PrescriptionRefillInput, string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -60,9 +57,7 @@ export function PrescriptionRefillForm() {
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
-        setServerError(
-          data?.error ?? "Something went wrong. Please try again.",
-        );
+        setServerError(data?.error ?? "Something went wrong. Please try again.");
         setStatus("error");
         return;
       }
@@ -70,9 +65,7 @@ export function PrescriptionRefillForm() {
       setStatus("success");
       setValues(initialValues);
     } catch {
-      setServerError(
-        "Network error — please check your connection and try again.",
-      );
+      setServerError("Network error — please check your connection and try again.");
       setStatus("error");
     }
   }
@@ -82,14 +75,10 @@ export function PrescriptionRefillForm() {
       <div className="rounded-xl border border-secondary/30 bg-secondary-light p-6">
         <p className="font-semibold text-secondary-dark">Request received!</p>
         <p className="mt-1 text-sm text-secondary-dark">
-          We&apos;ll text or email you when your prescription is ready. Call us
-          directly if it&apos;s urgent.
+          We&apos;ll text or email you when your prescription is ready. Call us directly if
+          it&apos;s urgent.
         </p>
-        <Button
-          variant="outline"
-          className="mt-4"
-          onClick={() => setStatus("idle")}
-        >
+        <Button variant="outline" className="mt-4" onClick={() => setStatus("idle")}>
           Submit Another Request
         </Button>
       </div>
@@ -99,20 +88,12 @@ export function PrescriptionRefillForm() {
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
       {serverError && (
-        <div
-          role="alert"
-          className="rounded-md bg-error-light px-4 py-3 text-sm text-error"
-        >
+        <div role="alert" className="rounded-md bg-error-light px-4 py-3 text-sm text-error">
           {serverError}
         </div>
       )}
 
-      <FormField
-        label="Full Name"
-        htmlFor="customerName"
-        error={errors.customerName}
-        required
-      >
+      <FormField label="Full Name" htmlFor="customerName" error={errors.customerName} required>
         <input
           id="customerName"
           type="text"
@@ -146,12 +127,7 @@ export function PrescriptionRefillForm() {
         </FormField>
       </div>
 
-      <FormField
-        label="Medicine Name"
-        htmlFor="medicineName"
-        error={errors.medicineName}
-        required
-      >
+      <FormField label="Medicine Name" htmlFor="medicineName" error={errors.medicineName} required>
         <input
           id="medicineName"
           type="text"
@@ -191,12 +167,7 @@ export function PrescriptionRefillForm() {
         />
       </FormField>
 
-      <Button
-        type="submit"
-        size="lg"
-        disabled={status === "submitting"}
-        className="w-full sm:w-auto"
-      >
+      <Button type="submit" size="lg" disabled={status === "submitting"} className="w-full sm:w-auto">
         {status === "submitting" ? "Submitting..." : "Submit Refill Request"}
       </Button>
     </form>
