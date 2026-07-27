@@ -35,12 +35,7 @@ export interface Database {
           phone: string;
           medicine_name: string;
           prescription_number: string | null;
-          status:
-            | "pending"
-            | "in_progress"
-            | "ready"
-            | "completed"
-            | "cancelled";
+          status: "pending" | "in_progress" | "ready" | "completed" | "cancelled";
           notes: string | null;
           created_at: string;
           updated_at: string;
@@ -52,19 +47,48 @@ export interface Database {
           phone: string;
           medicine_name: string;
           prescription_number?: string | null;
-          status?:
-            | "pending"
-            | "in_progress"
-            | "ready"
-            | "completed"
-            | "cancelled";
+          status?: "pending" | "in_progress" | "ready" | "completed" | "cancelled";
           notes?: string | null;
           created_at?: string;
           updated_at?: string;
         };
-        Update: Partial<
-          Database["public"]["Tables"]["prescription_requests"]["Insert"]
-        >;
+        Update: Partial<Database["public"]["Tables"]["prescription_requests"]["Insert"]>;
+        Relationships: [];
+      };
+      contact_messages: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["contact_messages"]["Insert"]>;
+        Relationships: [];
+      };
+      staff_profiles: {
+        Row: {
+          id: string;
+          full_name: string;
+          role: "admin" | "pharmacist" | "staff";
+          created_at: string;
+        };
+        Insert: {
+          id: string;
+          full_name: string;
+          role?: "admin" | "pharmacist" | "staff";
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["staff_profiles"]["Insert"]>;
         Relationships: [];
       };
     };
