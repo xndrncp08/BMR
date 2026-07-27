@@ -11,9 +11,7 @@ interface UseProductFiltersResult {
   filteredProducts: Product[];
 }
 
-export function useProductFilters(
-  products: Product[],
-): UseProductFiltersResult {
+export function useProductFilters(products: Product[]): UseProductFiltersResult {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -24,8 +22,7 @@ export function useProductFilters(
         query.length === 0 ||
         product.name.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query);
-      const matchesCategory =
-        !selectedCategory || product.category === selectedCategory;
+      const matchesCategory = !selectedCategory || product.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [products, searchTerm, selectedCategory]);

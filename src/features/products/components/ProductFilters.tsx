@@ -35,11 +35,7 @@ export function ProductFilters({
         />
       </div>
 
-      <div
-        className="flex flex-wrap gap-2"
-        role="group"
-        aria-label="Filter by category"
-      >
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
         <button
           type="button"
           onClick={() => onCategoryChange(null)}
@@ -48,7 +44,7 @@ export function ProductFilters({
             "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
             selectedCategory === null
               ? "bg-primary text-white"
-              : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+              : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
           )}
         >
           All
@@ -63,7 +59,7 @@ export function ProductFilters({
               "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
               selectedCategory === category
                 ? "bg-primary text-white"
-                : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+                : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
             )}
           >
             {category}
