@@ -1,27 +1,39 @@
 import { HeartHandshake, ShieldCheck, Users, Award } from "lucide-react";
-import { Section, Container, Card, CardHeader, CardTitle, CardDescription } from "@/components/ui";
+import { cn } from "@/lib/utils";
+import {
+  Section,
+  Container,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const VALUES = [
   {
     icon: HeartHandshake,
     title: "Compassion",
-    description: "Every patient is treated like a neighbor, because most of them are.",
+    description:
+      "Every patient is treated like a neighbor, because most of them are.",
   },
   {
     icon: ShieldCheck,
     title: "Integrity",
-    description: "Clear, honest guidance — even when the answer is 'you don't need this.'",
+    description:
+      "Clear, honest guidance — even when the answer is 'you don't need this.'",
   },
   {
     icon: Users,
     title: "Accessibility",
-    description: "No appointment needed for a quick question. We're here when you need us.",
+    description:
+      "No appointment needed for a quick question. We're here when you need us.",
   },
   {
     icon: Award,
     title: "Excellence",
-    description: "Licensed, continuously trained pharmacists who take the details seriously.",
+    description:
+      "Licensed, continuously trained pharmacists who take the details seriously.",
   },
 ];
 
@@ -36,7 +48,7 @@ const TEAM = [
 export default function AboutPage() {
   return (
     <>
-      <Section className="pb-12 pt-10 sm:pt-16">
+      <Section tone="vivid" className="pb-12 pt-10 sm:pt-16">
         <Container>
           <SectionHeading
             eyebrow="About BMR Pharmacy"
@@ -50,15 +62,17 @@ export default function AboutPage() {
       <Section tone="muted">
         <Container>
           <div className="mx-auto max-w-3xl space-y-4 text-neutral-700">
-            <h2 className="font-display text-2xl font-bold text-neutral-900">Our Story</h2>
+            <h2 className="font-display text-2xl font-bold text-neutral-900">
+              Our Story
+            </h2>
             <p>
               BMR Pharmacy opened its doors with a simple idea: medication is
-              only part of healthcare. The rest is guidance, patience, and
-              being available when something doesn't feel right. What began
-              as a single storefront has grown alongside the community it
-              serves, but the daily work hasn't changed — filling
-              prescriptions accurately, answering questions honestly, and
-              treating every visit like it matters, because it does.
+              only part of healthcare. The rest is guidance, patience, and being
+              available when something doesn't feel right. What began as a
+              single storefront has grown alongside the community it serves, but
+              the daily work hasn't changed — filling prescriptions accurately,
+              answering questions honestly, and treating every visit like it
+              matters, because it does.
             </p>
           </div>
         </Container>
@@ -73,9 +87,9 @@ export default function AboutPage() {
                 <CardTitle>Our Mission</CardTitle>
               </CardHeader>
               <p className="text-neutral-700">
-                To make expert pharmacy care accessible, personal, and
-                genuinely helpful for every person who walks through our
-                doors — or refills online at 11pm.
+                To make expert pharmacy care accessible, personal, and genuinely
+                helpful for every person who walks through our doors — or
+                refills online at 11pm.
               </p>
             </Card>
             <Card>
@@ -93,15 +107,33 @@ export default function AboutPage() {
       </Section>
 
       {/* Values */}
-      <Section tone="muted">
+      <Section tone="secondary">
         <Container>
-          <SectionHeading eyebrow="Our Commitment" title="What guides every visit" align="center" />
+          <SectionHeading
+            eyebrow="Our Commitment"
+            title="What guides every visit"
+            align="center"
+          />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {VALUES.map((value) => (
-              <Card key={value.title} className="text-center">
-                <value.icon className="mx-auto h-8 w-8 text-primary" aria-hidden="true" />
+            {VALUES.map((value, index) => (
+              <Card
+                key={value.title}
+                className={cn(
+                  "border-t-4 bg-white text-center",
+                  index % 2 === 0 ? "border-t-primary" : "border-t-secondary",
+                )}
+              >
+                <value.icon
+                  className={cn(
+                    "mx-auto h-8 w-8",
+                    index % 2 === 0 ? "text-primary" : "text-secondary-dark",
+                  )}
+                  aria-hidden="true"
+                />
                 <CardTitle className="mt-3">{value.title}</CardTitle>
-                <CardDescription className="mt-2">{value.description}</CardDescription>
+                <CardDescription className="mt-2">
+                  {value.description}
+                </CardDescription>
               </Card>
             ))}
           </div>
@@ -111,7 +143,11 @@ export default function AboutPage() {
       {/* Team */}
       <Section>
         <Container>
-          <SectionHeading eyebrow="Meet the Team" title="The people behind the counter" align="center" />
+          <SectionHeading
+            eyebrow="Meet the Team"
+            title="The people behind the counter"
+            align="center"
+          />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {TEAM.map((member) => (
               <div key={member.name} className="text-center">
@@ -121,7 +157,9 @@ export default function AboutPage() {
                     .map((n) => n[0])
                     .join("")}
                 </div>
-                <p className="mt-3 font-semibold text-neutral-900">{member.name}</p>
+                <p className="mt-3 font-semibold text-neutral-900">
+                  {member.name}
+                </p>
                 <p className="text-sm text-neutral-500">{member.role}</p>
               </div>
             ))}

@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 :root {
-  /* Primary — Clinical Blue */
-  --color-primary: #1b5aa6;
-  --color-primary-dark: #123f73;
-  --color-primary-light: #eaf2fb;
+  /* Primary — Pharmacy Green */
+  --color-primary: #1e8a5f;
+  --color-primary-dark: #146341;
+  --color-primary-light: #e3f5ec;
 
-  /* Secondary — Wellness Green */
-  --color-secondary: #2f9e6e;
-  --color-secondary-dark: #1f7350;
-  --color-secondary-light: #e6f5ee;
+  /* Secondary — Accent Red */
+  --color-secondary: #c1392b;
+  --color-secondary-dark: #962a20;
+  --color-secondary-light: #fbe7e4;
 
   /* Neutrals */
   --color-neutral-50: #f7f9fa;
@@ -21,9 +21,13 @@
   --color-neutral-700: #33404f;
   --color-neutral-900: #16202b;
 
-  /* Feedback */
-  --color-error: #c23b3b;
-  --color-error-light: #fbebeb;
+  /* Feedback — amber, kept distinct from the red brand accent so a form
+     error never looks like a decorative brand color */
+  --color-error: #b45309;
+  --color-error-light: #fef3e2;
+
+  /* Page background — a faint green-white tint instead of stark white */
+  --color-page-bg: #f7faf8;
 }
 
 html {
@@ -33,7 +37,27 @@ html {
 body {
   min-height: 100vh;
   color: var(--color-neutral-900);
-  background-color: #ffffff;
+  background-color: var(--color-page-bg);
+}
+
+/* Dotted + gradient mesh background for hero-style sections that need
+   real visual presence instead of a flat color fill. */
+.bg-hero-mesh {
+  background-image: radial-gradient(circle, rgba(30, 138, 95, 0.14) 1px, transparent 1px),
+    linear-gradient(135deg, var(--color-primary-light) 0%, #ffffff 45%, var(--color-secondary-light) 100%);
+  background-size:
+    22px 22px,
+    auto;
+}
+
+/* Reverse-direction mesh for sections lower on the page, so consecutive
+   colorful sections don't look identical. */
+.bg-hero-mesh-alt {
+  background-image: radial-gradient(circle, rgba(193, 57, 43, 0.14) 1px, transparent 1px),
+    linear-gradient(315deg, var(--color-secondary-light) 0%, #ffffff 45%, var(--color-primary-light) 100%);
+  background-size:
+    22px 22px,
+    auto;
 }
 
 /* Respect reduced-motion preferences site-wide */

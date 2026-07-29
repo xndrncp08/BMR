@@ -31,6 +31,7 @@ const config: Config = {
           DEFAULT: "var(--color-error)",
           light: "var(--color-error-light)",
         },
+        page: "var(--color-page-bg)",
       },
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],

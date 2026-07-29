@@ -1,8 +1,10 @@
+import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
+  accent?: "primary" | "secondary";
 }
 
 const currency = new Intl.NumberFormat("en-US", {
@@ -10,15 +12,31 @@ const currency = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, accent = "primary" }: ProductCardProps) {
+  const isPrimary = accent === "primary";
+
   return (
-    <Card className="flex flex-col">
-      {/* Placeholder visual until real product photography (Supabase Storage) lands in Milestone 8 */}
-      <div className="flex h-32 items-center justify-center rounded-lg bg-primary-light font-display text-2xl font-bold text-primary">
+    <Card
+      className={cn(
+        "flex flex-col border-t-4",
+        isPrimary ? "border-t-primary" : "border-t-secondary"
+      )}
+    >
+      <div
+        className={cn(
+          "flex h-32 items-center justify-center rounded-lg font-display text-2xl font-bold",
+          isPrimary ? "bg-primary-light text-primary" : "bg-secondary-light text-secondary"
+        )}
+      >
         {product.name.charAt(0)}
       </div>
       <CardHeader className="mt-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-secondary">
+        <p
+          className={cn(
+            "text-xs font-semibold uppercase tracking-wide",
+            isPrimary ? "text-secondary" : "text-primary"
+          )}
+        >
           {product.category}
         </p>
         <CardTitle>{product.name}</CardTitle>

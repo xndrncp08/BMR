@@ -5,9 +5,13 @@ import { cn } from "@/lib/utils";
 const sectionVariants = cva("w-full py-16 sm:py-20 lg:py-24", {
   variants: {
     tone: {
-      default: "bg-white",
-      muted: "bg-neutral-50",
+      default: "bg-page",
+      muted: "bg-neutral-100",
       primary: "bg-primary-light",
+      secondary: "bg-secondary-light",
+      vivid: "bg-hero-mesh",
+      vividAlt: "bg-hero-mesh-alt",
+      dark: "bg-neutral-900 text-white",
     },
   },
   defaultVariants: {
