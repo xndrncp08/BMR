@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Container } from "@/components/ui";
 import { NAV_LINKS } from "@/lib/navigation";
 
@@ -11,10 +11,13 @@ export function Footer() {
       <Container className="py-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="font-display text-lg font-bold text-white">BMR Pharmacy</p>
+            <p className="font-display text-lg font-bold text-white">
+              BMR Pharmacy
+            </p>
             <p className="mt-3 text-sm leading-relaxed text-neutral-400">
-              Trusted prescriptions, expert consultations, and wellness products for
-              your community.
+              A locally owned, family-operated community pharmacy in Morong,
+              Rizal — serving with trust, integrity, and compassionate care
+              since 2019.
             </p>
           </div>
 
@@ -41,9 +44,14 @@ export function Footer() {
               Hours
             </h3>
             <ul className="mt-4 space-y-1 text-sm text-neutral-400">
-              <li>Mon–Fri: 8:00 AM – 8:00 PM</li>
-              <li>Saturday: 9:00 AM – 6:00 PM</li>
-              <li>Sunday: 10:00 AM – 4:00 PM</li>
+              <li className="flex items-center gap-2">
+                <Clock
+                  className="h-4 w-4 shrink-0 text-secondary"
+                  aria-hidden="true"
+                />
+                Open 24 Hours
+              </li>
+              <li>Monday – Sunday</li>
             </ul>
           </div>
 
@@ -53,18 +61,33 @@ export function Footer() {
             </h3>
             <ul className="mt-4 space-y-3 text-sm text-neutral-400">
               <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                <span>123 Main Street, Your City, ST 00000</span>
+                <MapPin
+                  className="mt-0.5 h-4 w-4 shrink-0 text-secondary"
+                  aria-hidden="true"
+                />
+                <span>
+                  81 T. Claudio Street, Barangay San Juan Poblacion, Morong,
+                  Rizal 1960, Philippines
+                </span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                <a href="tel:+10000000000" className="hover:text-secondary">
-                  (000) 000-0000
+                <Phone
+                  className="h-4 w-4 shrink-0 text-secondary"
+                  aria-hidden="true"
+                />
+                <a href="tel:+639753737338" className="hover:text-secondary">
+                  +63 975 373 7338
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                <a href="mailto:info@bmrpharmacy.com" className="hover:text-secondary">
+                <Mail
+                  className="h-4 w-4 shrink-0 text-secondary"
+                  aria-hidden="true"
+                />
+                <a
+                  href="mailto:info@bmrpharmacy.com"
+                  className="hover:text-secondary"
+                >
                   info@bmrpharmacy.com
                 </a>
               </li>

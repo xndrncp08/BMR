@@ -1,4 +1,14 @@
-import { Pill, Stethoscope, HeartPulse, ShoppingBag, Users, type LucideIcon } from "lucide-react";
+import {
+  Pill,
+  ShoppingBag,
+  Sparkles,
+  Droplets,
+  Syringe,
+  MessageCircle,
+  Stethoscope,
+  HeartPulse,
+  type LucideIcon,
+} from "lucide-react";
 
 export interface Service {
   slug: string;
@@ -10,43 +20,67 @@ export interface Service {
 
 export const SERVICES: Service[] = [
   {
-    slug: "prescription-management",
+    slug: "prescription-dispensing",
     icon: Pill,
-    title: "Prescription Management",
-    shortDescription: "Fast refills, transfers, and reminders.",
+    title: "Prescription Medication Dispensing",
+    shortDescription: "Accurate, reliable prescription fulfillment.",
     description:
-      "We handle new prescriptions, refills, and transfers from other pharmacies, and can set up automatic refill reminders so you never run out of an important medication.",
+      "We fill new prescriptions and refills with careful attention to accuracy, safety, and proper labeling — the foundation of everything else we do.",
   },
   {
-    slug: "medication-consultation",
-    icon: Stethoscope,
-    title: "Medication Consultation",
-    shortDescription: "One-on-one time with a pharmacist.",
-    description:
-      "Sit down with a licensed pharmacist to review your medications, ask questions about dosage or side effects, and check for interactions across everything you take.",
-  },
-  {
-    slug: "health-advice",
-    icon: HeartPulse,
-    title: "Health Advice",
-    shortDescription: "Guidance for everyday health decisions.",
-    description:
-      "From choosing an over-the-counter remedy to understanding a new diagnosis, our pharmacists are available for informal, no-appointment-needed guidance.",
-  },
-  {
-    slug: "wellness-products",
+    slug: "otc-medicines",
     icon: ShoppingBag,
-    title: "Wellness Products",
-    shortDescription: "Vitamins, supplements, and essentials.",
+    title: "Over-the-Counter Medicines",
+    shortDescription: "Everyday remedies, always in stock.",
     description:
-      "A curated selection of vitamins, supplements, and everyday health essentials, chosen for quality and vetted by our pharmacy team.",
+      "A wide selection of trusted over-the-counter medications for everyday health needs, from pain relief to colds and allergies.",
   },
   {
-    slug: "patient-support",
-    icon: Users,
-    title: "Patient Support",
-    shortDescription: "Help navigating insurance and care.",
+    slug: "vitamins-supplements",
+    icon: Sparkles,
+    title: "Vitamins & Nutritional Supplements",
+    shortDescription: "Support for everyday wellness.",
     description:
-      "We help patients navigate insurance coverage, prior authorizations, and coordination with their doctors, so getting the right medication is one less thing to worry about.",
+      "Vitamins and nutritional supplements chosen for quality, to help support your family's everyday health and wellness routine.",
+  },
+  {
+    slug: "personal-care",
+    icon: Droplets,
+    title: "Personal Care & Hygiene Products",
+    shortDescription: "Everyday essentials for the whole family.",
+    description:
+      "Personal care and hygiene essentials for every member of the household, all in one convenient stop.",
+  },
+  {
+    slug: "medical-supplies",
+    icon: Syringe,
+    title: "Basic Medical Supplies",
+    shortDescription: "First aid and home care essentials.",
+    description:
+      "Basic medical supplies for home care and first aid, so you're prepared for the everyday and the unexpected.",
+  },
+  {
+    slug: "medication-counseling",
+    icon: MessageCircle,
+    title: "Medication Counseling",
+    shortDescription: "Clear guidance on how to take your medicine.",
+    description:
+      "One-on-one counseling on proper medication use, dosage, and precautions — because understanding your medicine matters as much as taking it.",
+  },
+  {
+    slug: "pharmacist-consultation",
+    icon: Stethoscope,
+    title: "Pharmacist Consultation",
+    shortDescription: "Direct access to licensed expertise.",
+    description:
+      "Speak directly with our licensed pharmacist about your medications, potential interactions, or general health concerns — no appointment needed.",
+  },
+  {
+    slug: "health-wellness-guidance",
+    icon: HeartPulse,
+    title: "Health & Wellness Guidance",
+    shortDescription: "Everyday advice for a healthier life.",
+    description:
+      "Friendly, informed guidance on everyday health decisions, from choosing the right supplement to simple lifestyle advice.",
   },
 ];

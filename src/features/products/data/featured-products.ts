@@ -1,4 +1,95 @@
-import { PRODUCTS } from "./products";
+import type { Product } from "@/types/product";
 
-// The homepage shows the first 4 items from the full catalog.
-export const FEATURED_PRODUCTS = PRODUCTS.slice(0, 4);
+// Placeholder catalog until Milestone 8 replaces this with a Supabase table.
+export const PRODUCTS: Product[] = [
+  {
+    id: "1",
+    name: "Daily Multivitamin",
+    description: "A complete daily multivitamin for adults.",
+    category: "Vitamins",
+    price: 299.0,
+    stockQuantity: 120,
+    imageUrl: null,
+  },
+  {
+    id: "2",
+    name: "Allergy Relief Tablets",
+    description: "24-hour non-drowsy allergy relief.",
+    category: "Over-the-Counter",
+    price: 149.0,
+    stockQuantity: 80,
+    imageUrl: null,
+  },
+  {
+    id: "3",
+    name: "Digital Thermometer",
+    description: "Fast, accurate readings in 10 seconds.",
+    category: "Medical Devices",
+    price: 450.0,
+    stockQuantity: 45,
+    imageUrl: null,
+  },
+  {
+    id: "4",
+    name: "Immune Support Gummies",
+    description: "Vitamin C, D, and zinc in a daily gummy.",
+    category: "Vitamins",
+    price: 389.0,
+    stockQuantity: 60,
+    imageUrl: null,
+  },
+  {
+    id: "5",
+    name: "Pain Relief Caplets",
+    description: "Fast-acting relief for headaches and minor aches.",
+    category: "Over-the-Counter",
+    price: 85.0,
+    stockQuantity: 150,
+    imageUrl: null,
+  },
+  {
+    id: "6",
+    name: "Adhesive Bandages (100ct)",
+    description: "Assorted sizes for everyday cuts and scrapes.",
+    category: "First Aid",
+    price: 120.0,
+    stockQuantity: 200,
+    imageUrl: null,
+  },
+  {
+    id: "7",
+    name: "Blood Pressure Monitor",
+    description: "Automatic upper-arm monitor with memory storage.",
+    category: "Medical Devices",
+    price: 1899.0,
+    stockQuantity: 25,
+    imageUrl: null,
+  },
+  {
+    id: "8",
+    name: "Baby Electrolyte Solution",
+    description: "Rehydration support for infants and toddlers.",
+    category: "Baby & Child",
+    price: 95.0,
+    stockQuantity: 40,
+    imageUrl: null,
+  },
+  {
+    id: "9",
+    name: "Moisturizing Hand Cream",
+    description: "Fragrance-free relief for dry, cracked skin.",
+    category: "Personal Care",
+    price: 175.0,
+    stockQuantity: 90,
+    imageUrl: null,
+  },
+  {
+    id: "10",
+    name: "Probiotic Capsules",
+    description: "Daily digestive support, 30-count.",
+    category: "Vitamins",
+    price: 520.0,
+    stockQuantity: 55,
+    imageUrl: null,
+  },
+];

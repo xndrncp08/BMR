@@ -8,12 +8,14 @@ interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
-const currency = new Intl.NumberFormat("en-US", {
+const currency = new Intl.NumberFormat("en-PH", {
   style: "currency",
-  currency: "USD",
+  currency: "PHP",
 });
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+export default async function ProductDetailPage({
+  params,
+}: ProductDetailPageProps) {
   const { id } = await params;
   const product = await getProductById(id);
 
@@ -24,7 +26,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   return (
     <Section className="pb-16 pt-10 sm:pt-16">
       <Container>
-        <Link href="/products" className="text-sm font-medium text-primary hover:text-primary-dark">
+        <Link
+          href="/products"
+          className="text-sm font-medium text-primary hover:text-primary-dark"
+        >
           ← Back to Products
         </Link>
 
@@ -45,11 +50,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               {currency.format(product.price)}
             </p>
             <p className="mt-1 text-sm text-neutral-500">
-              {product.stockQuantity > 0 ? `${product.stockQuantity} in stock` : "Out of stock"}
+              {product.stockQuantity > 0
+                ? `${product.stockQuantity} in stock`
+                : "Out of stock"}
             </p>
             <Link
               href="/contact"
-              className={cn(buttonVariants({ variant: "primary", size: "lg" }), "mt-8")}
+              className={cn(
+                buttonVariants({ variant: "primary", size: "lg" }),
+                "mt-8",
+              )}
             >
               Ask a Pharmacist
             </Link>

@@ -1,5 +1,11 @@
 import { cn } from "@/lib/utils";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -7,9 +13,9 @@ interface ProductCardProps {
   accent?: "primary" | "secondary";
 }
 
-const currency = new Intl.NumberFormat("en-US", {
+const currency = new Intl.NumberFormat("en-PH", {
   style: "currency",
-  currency: "USD",
+  currency: "PHP",
 });
 
 export function ProductCard({ product, accent = "primary" }: ProductCardProps) {
@@ -19,13 +25,15 @@ export function ProductCard({ product, accent = "primary" }: ProductCardProps) {
     <Card
       className={cn(
         "flex flex-col border-t-4",
-        isPrimary ? "border-t-primary" : "border-t-secondary"
+        isPrimary ? "border-t-primary" : "border-t-secondary",
       )}
     >
       <div
         className={cn(
           "flex h-32 items-center justify-center rounded-lg font-display text-2xl font-bold",
-          isPrimary ? "bg-primary-light text-primary" : "bg-secondary-light text-secondary"
+          isPrimary
+            ? "bg-primary-light text-primary"
+            : "bg-secondary-light text-secondary",
         )}
       >
         {product.name.charAt(0)}
@@ -34,7 +42,7 @@ export function ProductCard({ product, accent = "primary" }: ProductCardProps) {
         <p
           className={cn(
             "text-xs font-semibold uppercase tracking-wide",
-            isPrimary ? "text-secondary" : "text-primary"
+            isPrimary ? "text-secondary" : "text-primary",
           )}
         >
           {product.category}
