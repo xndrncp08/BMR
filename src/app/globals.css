@@ -5,21 +5,21 @@
 :root {
   /* Primary — Pharmacy Green */
   --color-primary: #1e8a5f;
-  --color-primary-dark: #146341;
-  --color-primary-light: #e3f5ec;
+  --color-primary-dark: #0f5c3d;
+  --color-primary-light: #cdeee0;
 
   /* Secondary — Accent Red */
   --color-secondary: #c1392b;
-  --color-secondary-dark: #962a20;
-  --color-secondary-light: #fbe7e4;
+  --color-secondary-dark: #7a2118;
+  --color-secondary-light: #f6d3ce;
 
   /* Neutrals */
   --color-neutral-50: #f7f9fa;
   --color-neutral-100: #eef1f4;
-  --color-neutral-300: #c6cdd6;
-  --color-neutral-500: #64748b;
+  --color-neutral-300: #b0b9c4;
+  --color-neutral-500: #52606d;
   --color-neutral-700: #33404f;
-  --color-neutral-900: #16202b;
+  --color-neutral-900: #10161d;
 
   /* Feedback — amber, kept distinct from the red brand accent so a form
      error never looks like a decorative brand color */
