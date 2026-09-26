@@ -11,9 +11,13 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-// Note: /prescriptions/refill doesn't exist yet — it's built in Milestone 9.
-// Linking to it now is intentional; it'll 404 until then, which is expected.
 export const REFILL_CTA: NavLink = {
   label: "Refill Prescription",
   href: "/prescriptions/refill",
 };
+
+/** True when `href` is the current page or one of its children. */
+export function isActivePath(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}

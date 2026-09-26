@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { Container, buttonVariants } from "@/components/ui";
+import { MapPin, Menu, Phone, Pill } from "lucide-react";
+import { Container, StatusDot, buttonVariants } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { NAV_LINKS, REFILL_CTA } from "@/lib/navigation";
+import { BUSINESS } from "@/lib/business";
+import { NAV_LINKS, REFILL_CTA, isActivePath } from "@/lib/navigation";
+import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
 
 export function Navbar() {
@@ -15,13 +17,28 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
+  // Close the menu on any route change (including back/forward). Adjusting
+  // state during render avoids an extra effect-driven re-render.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setIsMobileMenuOpen(false);
-  }, [pathname]);
+  }
+
+  // The sheet is mobile-only; close it if the viewport grows past `md` so the
+  // page is never left inert behind a dialog the user can't see.
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px)");
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsMobileMenuOpen(false);
+    };
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
 
   useEffect(() => {
     function handleScroll() {
-      setIsScrolled(window.scrollY > 8);
+      setIsScrolled(window.scrollY > 12);
     }
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -29,70 +46,103 @@ export function Navbar() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-shadow duration-300",
-        isScrolled ? "shadow-md" : "border-b border-neutral-100",
-      )}
-    >
-      <Container>
-        <div className="flex h-16 items-center justify-between sm:h-20">
-          <Link
-            href="/"
-            className="font-display text-xl font-extrabold text-primary"
-          >
-            BMR <span className="font-normal text-neutral-700">Pharmacy</span>
-          </Link>
+    <>
+      {/* Utility bar — scrolls away; the main bar below stays sticky */}
+      <div className="bg-primary-950 text-[0.8125rem] text-primary-100">
+        <Container className="flex h-10 items-center justify-between gap-4">
+          <p className="flex items-center gap-2 font-medium">
+            <StatusDot />
+            <span className="sm:hidden">{BUSINESS.hours.short}</span>
+            <span className="hidden sm:inline">{BUSINESS.hours.long}</span>
+          </p>
+          <div className="flex items-center gap-5">
+            <span className="hidden items-center gap-1.5 md:flex">
+              <MapPin className="size-3.5 text-primary-300" aria-hidden="true" />
+              {BUSINESS.address.short}
+            </span>
+            <a
+              href={BUSINESS.phone.href}
+              className="focus-ring flex items-center gap-1.5 rounded font-semibold text-white transition-colors hover:text-primary-200 focus-visible:ring-offset-primary-950"
+            >
+              <Phone className="size-3.5 text-primary-300" aria-hidden="true" />
+              {BUSINESS.phone.display}
+            </a>
+          </div>
+        </Container>
+      </div>
 
-          <nav
-            aria-label="Main"
-            className="hidden md:flex md:items-center md:gap-8"
-          >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative text-sm font-medium text-neutral-700 transition-colors hover:text-primary [&:hover>span]:scale-x-100"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-primary transition-transform duration-300" />
-              </Link>
-            ))}
-          </nav>
+      <header
+        className={cn(
+          "sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300",
+          isScrolled
+            ? "border-neutral-200 bg-white/85 shadow-soft backdrop-blur-xl backdrop-saturate-150"
+            : "border-transparent bg-white",
+        )}
+      >
+        <Container>
+          <div className="flex h-16 items-center justify-between gap-6 sm:h-[4.5rem]">
+            <Logo />
 
-          <div className="hidden md:block">
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            <nav aria-label="Main" className="hidden md:block">
+              <ul className="flex items-center gap-1">
+                {NAV_LINKS.map((link) => {
+                  const active = isActivePath(pathname, link.href);
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "focus-ring relative isolate block rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-colors",
+                          active
+                            ? "text-primary-800"
+                            : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900",
+                        )}
+                      >
+                        {active && (
+                          <motion.span
+                            layoutId="nav-active-pill"
+                            className="absolute inset-0 -z-10 rounded-full bg-primary-50 ring-1 ring-inset ring-primary-200"
+                            transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                          />
+                        )}
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+
+            <div className="flex items-center gap-2">
               <Link
                 href={REFILL_CTA.href}
-                className={buttonVariants({ variant: "secondary" })}
+                className={cn(buttonVariants({ variant: "accent", size: "md" }), "hidden sm:inline-flex")}
               >
+                <Pill aria-hidden="true" />
                 {REFILL_CTA.label}
               </Link>
-            </motion.div>
-          </div>
 
-          <button
-            type="button"
-            className="inline-flex items-center justify-center rounded-md p-2 text-neutral-700 hover:bg-neutral-50 md:hidden"
-            aria-controls="mobile-nav"
-            aria-expanded={isMobileMenuOpen}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" aria-hidden="true" />
-            ) : (
-              <Menu className="h-6 w-6" aria-hidden="true" />
-            )}
-          </button>
-        </div>
-      </Container>
+              <button
+                type="button"
+                className={cn(buttonVariants({ variant: "outline", size: "icon" }), "md:hidden")}
+                aria-haspopup="dialog"
+                aria-expanded={isMobileMenuOpen}
+                aria-label="Open menu"
+                onClick={() => setIsMobileMenuOpen(true)}
+              >
+                <Menu className="!size-5" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </Container>
+      </header>
 
       <MobileNav
-        id="mobile-nav"
-        isOpen={isMobileMenuOpen}
-        onNavigate={() => setIsMobileMenuOpen(false)}
+        open={isMobileMenuOpen}
+        onOpenChange={setIsMobileMenuOpen}
+        pathname={pathname}
       />
-    </header>
+    </>
   );
 }

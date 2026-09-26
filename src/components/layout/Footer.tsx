@@ -1,110 +1,122 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
-import { Container } from "@/components/ui";
-import { NAV_LINKS } from "@/lib/navigation";
+import { ArrowUpRight, Clock, Mail, MapPin, Phone, Pill } from "lucide-react";
+import { Container, buttonVariants } from "@/components/ui";
+import { cn } from "@/lib/utils";
+import { BUSINESS } from "@/lib/business";
+import { NAV_LINKS, REFILL_CTA } from "@/lib/navigation";
+import { Logo } from "./Logo";
+
+const footerLink =
+  "focus-ring rounded text-primary-100/75 transition-colors hover:text-white focus-visible:ring-offset-primary-950";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-neutral-300">
-      <Container className="py-12">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative overflow-hidden bg-primary-950 text-primary-100">
+      <div className="bg-dot-grid-inverse absolute inset-0" aria-hidden="true" />
+      <div
+        className="absolute -top-48 left-1/2 h-96 w-[48rem] -translate-x-1/2 rounded-full bg-primary-600/25 blur-3xl"
+        aria-hidden="true"
+      />
+
+      <Container className="relative">
+        {/* CTA strip */}
+        <div className="flex flex-col items-start justify-between gap-6 border-b border-white/10 py-12 md:flex-row md:items-center">
           <div>
-            <p className="font-display text-lg font-bold text-white">
-              BMR Pharmacy
+            <p className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              Running low on your medicine?
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-neutral-400">
-              A locally owned, family-operated community pharmacy in Morong,
-              Rizal — serving with trust, integrity, and compassionate care
-              since 2019.
+            <p className="mt-2 text-primary-100/75">
+              Request a refill online. We&apos;ll let you know the moment it&apos;s ready.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href={REFILL_CTA.href} className={buttonVariants({ variant: "accent", size: "lg" })}>
+              <Pill aria-hidden="true" />
+              {REFILL_CTA.label}
+            </Link>
+            <a href={BUSINESS.phone.href} className={buttonVariants({ variant: "inverse-outline", size: "lg" })}>
+              <Phone aria-hidden="true" />
+              Call us
+            </a>
+          </div>
+        </div>
+
+        <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Logo tone="inverse" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-primary-100/75">
+              A locally owned, family-operated community pharmacy in Morong, Rizal — serving with
+              trust, integrity, and compassionate care since {BUSINESS.founded}.
             </p>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
-              Quick Links
-            </h3>
-            <ul className="mt-4 space-y-2">
+          <nav aria-labelledby="footer-explore" className="lg:col-span-2">
+            <h2 id="footer-explore" className="text-xs font-bold uppercase tracking-[0.14em] text-white">
+              Explore
+            </h2>
+            <ul className="mt-5 space-y-3 text-sm">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-neutral-400 transition-colors hover:text-secondary"
-                  >
+                  <Link href={link.href} className={footerLink}>
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
-              Hours
-            </h3>
-            <ul className="mt-4 space-y-1 text-sm text-neutral-400">
-              <li className="flex items-center gap-2">
-                <Clock
-                  className="h-4 w-4 shrink-0 text-secondary"
-                  aria-hidden="true"
-                />
-                Open 24 Hours
-              </li>
-              <li>Monday – Sunday</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
-              Contact
-            </h3>
-            <ul className="mt-4 space-y-3 text-sm text-neutral-400">
-              <li className="flex items-start gap-2">
-                <MapPin
-                  className="mt-0.5 h-4 w-4 shrink-0 text-secondary"
-                  aria-hidden="true"
-                />
-                <span>
-                  81 T. Claudio Street, Barangay San Juan Poblacion, Morong,
-                  Rizal 1960, Philippines
+          <div className="lg:col-span-3">
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-white">Visit</h2>
+            <address className="mt-5 space-y-3 text-sm not-italic">
+              <p className="flex gap-2.5">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-primary-300" aria-hidden="true" />
+                <span className="text-primary-100/75">
+                  {BUSINESS.address.street}, {BUSINESS.address.city}
                 </span>
+              </p>
+              <a
+                href={BUSINESS.mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(footerLink, "inline-flex items-center gap-1 pl-6 font-semibold text-white")}
+              >
+                Get directions
+                <ArrowUpRight className="size-4" aria-hidden="true" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </address>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-white">Contact</h2>
+            <ul className="mt-5 space-y-3 text-sm">
+              <li className="flex items-center gap-2.5">
+                <Clock className="size-4 shrink-0 text-primary-300" aria-hidden="true" />
+                <span className="text-primary-100/75">{BUSINESS.hours.long}</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone
-                  className="h-4 w-4 shrink-0 text-secondary"
-                  aria-hidden="true"
-                />
-                <a href="tel:+639753737338" className="hover:text-secondary">
-                  +63 975 373 7338
+              <li className="flex items-center gap-2.5">
+                <Phone className="size-4 shrink-0 text-primary-300" aria-hidden="true" />
+                <a href={BUSINESS.phone.href} className={footerLink}>
+                  {BUSINESS.phone.display}
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail
-                  className="h-4 w-4 shrink-0 text-secondary"
-                  aria-hidden="true"
-                />
-                <a
-                  href="mailto:info@bmrpharmacy.com"
-                  className="hover:text-secondary"
-                >
-                  info@bmrpharmacy.com
+              <li className="flex items-center gap-2.5">
+                <Mail className="size-4 shrink-0 text-primary-300" aria-hidden="true" />
+                <a href={BUSINESS.email.href} className={footerLink}>
+                  {BUSINESS.email.display}
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-neutral-700 pt-6 text-sm text-neutral-500 sm:flex-row">
-          <p>© {year} BMR Pharmacy. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-secondary">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-secondary">
-              Terms of Service
-            </Link>
-          </div>
+        <div className="flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-primary-100/60 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {BUSINESS.name}. All rights reserved.
+          </p>
+          <p>Licensed community pharmacy · Morong, Rizal, Philippines</p>
         </div>
       </Container>
     </footer>
