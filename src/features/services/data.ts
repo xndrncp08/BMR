@@ -84,3 +84,26 @@ export const SERVICES: Service[] = [
       "Friendly, informed guidance on everyday health decisions, from choosing the right supplement to simple lifestyle advice.",
   },
 ];
+
+export const SERVICE_FAQS = [
+  {
+    question: "Do I need an appointment to speak with a pharmacist?",
+    answer:
+      "No appointment needed. Walk in any time and ask for our pharmacist — we're happy to talk through your medications, possible interactions, or general health concerns.",
+  },
+  {
+    question: "Are you really open 24 hours?",
+    answer:
+      "Yes. BMR Pharmacy is open 24 hours a day, Monday to Sunday, so you can pick up medicine or get advice whenever you need it.",
+  },
+  {
+    question: "How do prescription refill requests work?",
+    answer:
+      "Submit the online refill form with your medicine name and contact details. We'll prepare it and text or email you when it's ready. For anything urgent, call us directly.",
+  },
+  {
+    question: "Can you help me choose an over-the-counter medicine or supplement?",
+    answer:
+      "Absolutely. Tell us your symptoms or goals and any medicines you already take, and we'll help you pick something suitable — or let you know if you should see a doctor.",
+  },
+];

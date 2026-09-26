@@ -1,14 +1,9 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/features/auth/actions";
+import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui";
-
-const ADMIN_NAV = [
-  { label: "Overview", href: "/admin" },
-  { label: "Products", href: "/admin/products" },
-  { label: "Prescriptions", href: "/admin/prescriptions" },
-];
+import { AdminNav } from "@/features/dashboard/components/AdminNav";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   // Defense in depth: middleware already redirects unauthenticated users,
@@ -23,27 +18,19 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-5rem)] flex-col sm:flex-row">
-      <aside className="w-full shrink-0 border-b border-neutral-100 bg-white p-6 sm:w-56 sm:border-b-0 sm:border-r">
-        <p className="font-display text-lg font-bold text-neutral-900">Admin</p>
-        <nav className="mt-6 flex flex-col gap-1">
-          {ADMIN_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-md px-3 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-primary"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+    <div className="flex min-h-[calc(100vh-4.5rem)] flex-col sm:flex-row">
+      <aside className="w-full shrink-0 border-b border-neutral-200 bg-white p-6 sm:w-60 sm:border-b-0 sm:border-r">
+        <p className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500">Admin</p>
+        <p className="mt-1 truncate text-sm text-neutral-700">{user.email}</p>
+        <AdminNav />
         <form action={signOut} className="mt-6">
           <Button variant="outline" size="sm" type="submit" className="w-full">
-            Sign Out
+            <LogOut aria-hidden="true" />
+            Sign out
           </Button>
         </form>
       </aside>
-      <div className="flex-1 bg-neutral-50 p-8">{children}</div>
+      <div className="flex-1 bg-neutral-50 p-6 sm:p-10">{children}</div>
     </div>
   );
 }

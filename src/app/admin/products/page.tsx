@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { deleteProduct } from "@/features/dashboard/actions/product-actions";
 import { buttonVariants } from "@/components/ui";
+import { currency } from "@/features/products/lib/presentation";
 
 export default async function AdminProductsPage() {
   const supabase = await createClient();
@@ -35,7 +36,7 @@ export default async function AdminProductsPage() {
               <tr key={product.id} className="border-t border-neutral-100">
                 <td className="px-4 py-3 font-medium text-neutral-900">{product.name}</td>
                 <td className="px-4 py-3 text-neutral-500">{product.category}</td>
-                <td className="px-4 py-3">${product.price}</td>
+                <td className="px-4 py-3 tabular-nums">{currency.format(product.price)}</td>
                 <td className="px-4 py-3">{product.stock_quantity}</td>
                 <td className="whitespace-nowrap px-4 py-3 text-right">
                   <Link
