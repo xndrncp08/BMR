@@ -13,4 +13,9 @@ describe("cn", () => {
   it("drops falsy values", () => {
     expect(cn("px-2", false && "hidden", undefined, "text-sm")).toBe("px-2 text-sm");
   });
+
+  it("treats custom display sizes as font sizes, not colors", () => {
+    expect(cn("text-display-xl", "text-white")).toBe("text-display-xl text-white");
+    expect(cn("text-display-xl", "text-display-md")).toBe("text-display-md");
+  });
 });

@@ -2,65 +2,214 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * BMR design tokens.
+ * Colors are RGB channels (not hex) so Tailwind opacity modifiers work:
+ * `bg-primary-600/10` → rgb(var(--primary-600) / 0.1).
+ */
 :root {
-  /* Primary — Pharmacy Green */
-  --color-primary: #1e8a5f;
-  --color-primary-dark: #0f5c3d;
-  --color-primary-light: #cdeee0;
+  /* Evergreen — brand primary. 600 is the AA-safe default for text & fills. */
+  --primary-50: 237 250 243;
+  --primary-100: 211 243 226;
+  --primary-200: 169 230 201;
+  --primary-300: 114 208 168;
+  --primary-400: 61 181 132;
+  --primary-500: 28 154 107;
+  --primary-600: 18 128 90;
+  --primary-700: 14 104 73;
+  --primary-800: 14 83 60;
+  --primary-900: 12 68 50;
+  --primary-950: 6 42 30;
 
-  /* Secondary — Accent Red */
-  --color-secondary: #c1392b;
-  --color-secondary-dark: #7a2118;
-  --color-secondary-light: #f6d3ce;
+  /* Coral red — brand accent. Reserved for the refill action and small
+     brand marks so it keeps its meaning instead of competing with green. */
+  --accent-50: 255 243 241;
+  --accent-100: 255 227 223;
+  --accent-200: 255 204 197;
+  --accent-300: 254 168 156;
+  --accent-400: 248 122 107;
+  --accent-500: 236 82 66;
+  --accent-600: 208 52 42;
+  --accent-700: 174 42 33;
+  --accent-800: 144 38 31;
+  --accent-900: 119 37 32;
+  --accent-950: 65 15 12;
 
-  /* Neutrals */
-  --color-neutral-50: #f7f9fa;
-  --color-neutral-100: #eef1f4;
-  --color-neutral-300: #b0b9c4;
-  --color-neutral-500: #52606d;
-  --color-neutral-700: #33404f;
-  --color-neutral-900: #10161d;
+  /* Sage slate — neutrals with a faint green cast so grays feel on-brand */
+  --neutral-50: 245 248 246;
+  --neutral-100: 235 240 237;
+  --neutral-200: 220 228 224;
+  --neutral-300: 194 204 199;
+  --neutral-400: 131 145 139;
+  --neutral-500: 95 109 103;
+  --neutral-600: 70 83 77;
+  --neutral-700: 52 64 59;
+  --neutral-800: 34 44 40;
+  --neutral-900: 21 29 25;
+  --neutral-950: 11 17 14;
 
-  /* Feedback — amber, kept distinct from the red brand accent so a form
-     error never looks like a decorative brand color */
-  --color-error: #b45309;
-  --color-error-light: #fef3e2;
+  /* Feedback — amber, distinct from the red accent so a form error never
+     reads as decoration (and vice versa) */
+  --error: 180 83 9;
+  --error-light: 255 248 235;
 
-  /* Page background — a faint green-white tint instead of stark white */
-  --color-page-bg: #f7faf8;
+  --page: 250 252 251;
+  --shadow: 12 45 32;
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    @apply bg-page text-neutral-900 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-balance;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-950;
+  }
+
+  /* Anchor targets land below the sticky header */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Lock page scroll while any modal dialog is open */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
 
-body {
-  min-height: 100vh;
-  color: var(--color-neutral-900);
-  background-color: var(--color-page-bg);
+@layer components {
+  /* One focus treatment for every interactive element */
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+  }
+
+  /* Faint dotted grid — texture for hero and header surfaces */
+  .bg-dot-grid {
+    background-image: radial-gradient(rgb(var(--primary-600) / 0.14) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .bg-dot-grid-inverse {
+    background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Fade the dotted grid out toward the edges */
+  .mask-radial {
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
 }
 
-/* Dotted + gradient mesh background for hero-style sections that need
-   real visual presence instead of a flat color fill. */
-.bg-hero-mesh {
-  background-image: radial-gradient(circle, rgba(30, 138, 95, 0.14) 1px, transparent 1px),
-    linear-gradient(135deg, var(--color-primary-light) 0%, #ffffff 45%, var(--color-secondary-light) 100%);
-  background-size:
-    22px 22px,
-    auto;
+/* Entrance delay helpers for CSS-driven (pre-hydration) animations.
+   Deliberately outside @layer so they come after the `animate-*` utilities,
+   whose `animation` shorthand would otherwise reset the delay to 0. */
+.delay-1 {
+  animation-delay: 60ms;
+}
+.delay-2 {
+  animation-delay: 140ms;
+}
+.delay-3 {
+  animation-delay: 220ms;
+}
+.delay-4 {
+  animation-delay: 300ms;
+}
+.delay-5 {
+  animation-delay: 380ms;
 }
 
-/* Reverse-direction mesh for sections lower on the page, so consecutive
-   colorful sections don't look identical. */
-.bg-hero-mesh-alt {
-  background-image: radial-gradient(circle, rgba(193, 57, 43, 0.14) 1px, transparent 1px),
-    linear-gradient(315deg, var(--color-secondary-light) 0%, #ffffff 45%, var(--color-primary-light) 100%);
-  background-size:
-    22px 22px,
-    auto;
+/*
+ * Native <dialog> animation. Open uses keyframes (works everywhere);
+ * close is driven by [data-closing] so Dialog.tsx can wait for the
+ * animation to finish before calling dialog.close().
+ */
+dialog.bmr-dialog::backdrop {
+  background: rgb(var(--neutral-950) / 0.55);
+  backdrop-filter: blur(4px);
+  animation: backdrop-in 0.25s ease-out both;
 }
 
-/* Respect reduced-motion preferences site-wide */
+dialog.bmr-dialog[data-closing]::backdrop {
+  animation: backdrop-out 0.2s ease-in both;
+}
+
+dialog.bmr-dialog[data-variant="modal"] {
+  animation: modal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+dialog.bmr-dialog[data-variant="modal"][data-closing] {
+  animation: modal-out 0.18s ease-in both;
+}
+
+dialog.bmr-dialog[data-variant="sheet"] {
+  animation: sheet-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+dialog.bmr-dialog[data-variant="sheet"][data-closing] {
+  animation: sheet-out 0.22s ease-in both;
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+@keyframes modal-out {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Respect reduced-motion preferences site-wide. Framer Motion is covered
+   separately by <MotionConfig reducedMotion="user"> in MotionProvider. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -70,6 +219,7 @@ body {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
   }
 }

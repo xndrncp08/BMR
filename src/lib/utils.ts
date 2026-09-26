@@ -1,5 +1,19 @@
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
+
+/**
+ * tailwind-merge needs to know about custom theme keys, otherwise it
+ * misclassifies them — e.g. `text-display-xl` would be read as a text
+ * *color* and silently dropped when combined with `text-white`.
+ */
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [{ text: ["display-xl", "display-lg", "display-md"] }],
+      shadow: [{ shadow: ["xs", "soft", "lift", "glow", "inner-line"] }],
+    },
+  },
+});
 
 /**
  * Combines clsx (conditional class logic) with tailwind-merge (conflict
